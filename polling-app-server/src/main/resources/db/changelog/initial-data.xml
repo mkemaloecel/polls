@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="kemal" id="initial-data">
+
+        <insert tableName="role">
+            <column name="name" value="ROLE_USER"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="ROLE_ADMIN"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="id" valueNumeric="nextval('user_id_seq')"/>
+            <column name="create_date_time" valueDate="2021-01-22"/>
+            <column name="update_date_time" valueDate="2021-01-22"/>
+            <column name="email" value="meister@peuka.com"/>
+            <column name="username" value="meister"/>
+            <column name="name" value="meister peuka"/>
+            <column name="password" value="$2a$10$SwQdIzSpz.RvOb2RChd6q.kNsx.mMxhie9mNUt3JnHfh.VHWvELm2"/>
+        </insert>
+
+        <insert tableName="user_role">
+            <column name="id" valueNumeric="nextval('user_role_id_seq')"/>
+            <column name="create_date_time" valueDate="2021-01-22"/>
+            <column name="update_date_time" valueDate="2021-01-22"/>
+            <column name="user_id" valueNumeric="currval('user_id_seq')"/>
+            <column name="role_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="id" valueNumeric="nextval('user_id_seq')"/>
+            <column name="create_date_time" valueDate="2021-01-22"/>
+            <column name="update_date_time" valueDate="2021-01-22"/>
+            <column name="email" value="test@peuka.com"/>
+            <column name="username" value="testuser"/>
+            <column name="name" value="test user"/>
+            <column name="password" value="$2a$10$IPWSmG4.kDhy9F/K1R95EOr0GXP.HMf3j5UYA/uOVcc4j9qz2rL92"/>
+        </insert>
+
+        <insert tableName="user_role">
+            <column name="id" valueNumeric="nextval('user_role_id_seq')"/>
+            <column name="create_date_time" valueDate="2021-01-22"/>
+            <column name="update_date_time" valueDate="2021-01-22"/>
+            <column name="user_id" valueNumeric="currval('user_id_seq')"/>
+            <column name="role_id" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

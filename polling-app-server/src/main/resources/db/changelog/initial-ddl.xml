@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="kemal" id="initial-ddl">
+        <createSequence sequenceName="user_id_seq" startValue="1"/>
+        <createSequence sequenceName="role_id_seq" startValue="1"/>
+        <createSequence sequenceName="poll_id_seq" startValue="1"/>
+        <createSequence sequenceName="choice_id_seq" startValue="1"/>
+        <createSequence sequenceName="user_role_id_seq" startValue="1"/>
+        <createSequence sequenceName="vote_id_seq" startValue="1"/>
+
+        <createTable tableName="users">
+            <column name="id" type="bigint" defaultValueComputed="nextval('user_id_seq')">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="create_date_time" type="timestamptz"/>
+            <column name="update_date_time" type="timestamptz"/>
+
+            <column name="email" type="text">
+                <constraints nullable="false" unique="true"></constraints>
+            </column>
+            <column name="password" type="text"/>
+            <column name="username" type="text"/>
+            <column name="name" type="text"/>
+            <column name="token" type="text"/>
+
+        </createTable>
+
+        <createTable tableName="role">
+            <column name="id" type="bigint" defaultValueComputed="nextval('role_id_seq')">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="create_date_time" type="timestamptz"/>
+            <column name="update_date_time" type="timestamptz"/>
+
+            <column name="name" type="text"/>
+
+        </createTable>
+
+        <createTable tableName="poll">
+            <column name="id" type="bigint" defaultValueComputed="nextval('poll_id_seq')">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="create_date_time" type="timestamptz"/>
+            <column name="update_date_time" type="timestamptz"/>
+            <column name="expiration_date_time" type="timestamptz"/>
+            <column name="created_by" type="bigint"/>
+            <column name="updated_by" type="bigint"/>
+            <column name="question" type="text"/>
+
+        </createTable>
+
+        <createTable tableName="choice">
+            <column name="id" type="bigint" defaultValueComputed="nextval('choice_id_seq')">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="create_date_time" type="timestamptz"/>
+            <column name="update_date_time" type="timestamptz"/>
+
+            <column name="text" type="text"/>
+            <column name="poll_id" type="bigint"/>
+        </createTable>
+
+        <createTable tableName="vote">
+            <column name="id" type="bigint" defaultValueComputed="nextval('vote_id_seq')">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="create_at" type="timestamptz"/>
+            <column name="update_at" type="timestamptz"/>
+
+            <column name="choice_id" type="bigint"/>
+            <column name="poll_id" type="bigint"/>
+            <column name="user_id" type="bigint"/>
+        </createTable>
+
+
+        <createTable tableName="user_role">
+            <column name="id" type="bigint" defaultValueComputed="nextval('user_role_id_seq')">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="create_date_time" type="timestamptz"/>
+            <column name="update_date_time" type="timestamptz"/>
+
+            <column name="user_id" type="bigint"/>
+            <column name="role_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
