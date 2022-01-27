@@ -143,7 +143,7 @@ public class PollService {
     }
 
 
-    public Poll createPoll(PollRequest pollRequest) {
+    public Poll createPoll(PollRequest pollRequest, UserPrincipal currentUser) {
         Poll poll = new Poll();
         poll.setQuestion(pollRequest.getQuestion());
 
@@ -156,6 +156,10 @@ public class PollService {
                 .plus(Duration.ofHours(pollRequest.getPollLength().getHours()));
 
         poll.setExpirationDateTime(expirationDateTime);
+        if(currentUser != null){
+            poll.setCreatedBy(currentUser.getId());
+            poll.setUpdatedBy(currentUser.getId());
+        }
 
         return pollRepository.save(poll);
     }

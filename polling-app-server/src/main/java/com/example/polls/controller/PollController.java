@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
@@ -47,7 +48,12 @@ public class PollController {
     @PostMapping
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> createPoll(@Valid @RequestBody PollRequest pollRequest) {
-        Poll poll = pollService.createPoll(pollRequest);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserPrincipal user = null;
+        if (principal instanceof UserPrincipal) {
+            user = (UserPrincipal) principal;
+        }
+        Poll poll = pollService.createPoll(pollRequest, user);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{pollId}")
