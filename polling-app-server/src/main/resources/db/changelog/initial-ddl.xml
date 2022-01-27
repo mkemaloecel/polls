@@ -69,8 +69,8 @@
             <column name="id" type="bigint" defaultValueComputed="nextval('vote_id_seq')">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="create_at" type="timestamptz"/>
-            <column name="update_at" type="timestamptz"/>
+            <column name="create_date_time" type="timestamptz"/>
+            <column name="update_date_time" type="timestamptz"/>
 
             <column name="choice_id" type="bigint"/>
             <column name="poll_id" type="bigint"/>
